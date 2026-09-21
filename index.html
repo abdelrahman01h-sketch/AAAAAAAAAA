@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduNova — منصتك التعليمية</title>
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="platform.css">
+</head>
+<body>
+
+<header class="nav" id="nav"></header>
+
+<section class="section">
+  <div class="container hero">
+    <div>
+      <h1>ذاكر وامتحن نفسك في مكان واحد <span class="grad-text">بشكل منظم واحترافي</span></h1>
+      <p>EduNova منصتك اللي بتجمعلك كل امتحاناتك في مكان واحد، بتصميم واضح وسهل، عشان تدخل تمتحن وانت مرتاح ومركّز من غير أي تعقيد.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="signup.html">ابدأ دلوقتي — أنشئ حسابك 🚀</a>
+        <a class="btn btn-ghost btn-lg" href="login.html">عندي حساب بالفعل</a>
+      </div>
+    </div>
+    <div class="hero-visual glass">
+      <div class="frame">
+        <div class="tag">📚 امتحاناتك كلها منظمة زي الكورسات</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>رحلتك في 3 خطوات بسيطة</h2>
+        <p>من إنشاء الحساب لحد ما تبدأ الامتحان، كل حاجة واضحة قدامك.</p>
+      </div>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card glass">
+        <div class="num">1</div>
+        <h3>أنشئ حسابك</h3>
+        <p>سجّل ببياناتك ورقم موبايلك، وهنبعتلك كود تحقق على SMS للتأكد إن الرقم بتاعك.</p>
+      </div>
+      <div class="step-card glass">
+        <div class="num">2</div>
+        <h3>استعرض الامتحانات</h3>
+        <p>هتلاقي كل الامتحانات المتاحة معروضة في كروت واضحة، بصورة واسم ووصف لكل امتحان.</p>
+      </div>
+      <div class="step-card glass">
+        <div class="num">3</div>
+        <h3>ابدأ امتحانك</h3>
+        <p>افتح صفحة تفاصيل الامتحان، اقرا المعلومات، واضغط "ابدأ الامتحان" لما تكون جاهز.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">EduNova — Developed By Abdelrahman Mohamed</div>
+
+<script type="module">
+import { renderNav, getStudent } from "./platform.js";
+if (getStudent()) window.location.replace("home.html");
+renderNav("");
+</script>
+</body>
+</html>

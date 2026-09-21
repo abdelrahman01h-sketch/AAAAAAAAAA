@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل الدخول - EduNova</title>
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="platform.css">
+</head>
+<body class="center-page">
+
+<header class="nav" id="nav"></header>
+
+<div class="auth-card glass">
+  <div class="hero-icon">🚀</div>
+  <h1>يلا بينا تسجل دخولك</h1>
+  <p class="sub">EXAM ACCESS · V.3.0</p>
+
+  <div class="field">
+    <label>اسم المستخدم</label>
+    <input id="usernameInput" placeholder="اسم المستخدم 👤" autocomplete="username">
+  </div>
+  <div class="field">
+    <label>كلمة السر</label>
+    <input id="passwordInput" type="password" placeholder="كلمة السر 🔑" autocomplete="current-password">
+  </div>
+
+  <button class="btn btn-primary btn-block" id="loginBtn">يلا بينا! 🚀</button>
+  <div class="msg" id="msg"></div>
+
+  <div class="auth-foot">لسه معملتش حساب؟ <a href="signup.html">أنشئ حساب جديد</a></div>
+</div>
+
+<script type="module">
+import {
+  db, doc, getDoc, collection, getDocs, query, where,
+  getStudent, startSession, checkPassword, isReservedUsername,
+  renderNav, showLoading, hideLoading, showPopup
+} from "./platform.js";
+
+renderNav("login");
+if (getStudent()) window.location.replace("home.html");
+
+const loginBtn = document.getElementById("loginBtn");
+const usernameInput = document.getElementById("usernameInput");
+const passwordInput = document.getElementById("passwordInput");
+
+loginBtn.onclick = async function () {
+  const username = usernameInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!username || !password) {
+    showPopup("⌨️", "استنى بس 😄", "اكتب اسم المستخدم وكلمة السر الأول يا بطل 😄");
+    return;
+  }
+  if (isReservedUsername(username)) {
+    showPopup("❌", "بيانات الدخول غلط 😅", "الاسم ده محجوز. لو إنت المدير، سجّل دخولك من لوحة التحكم مش من هنا 🚫");
+    return;
+  }
+
+  showLoading("بنتأكد منك... 🔍");
+  loginBtn.disabled = true;
+
+  try {
+    const q = query(collection(db, "students"), where("username", "==", username));
+    const snap = await getDocs(q);
+
+    if (snap.empty) {
+      hideLoading(); loginBtn.disabled = false;
+      showPopup("❌", "بيانات الدخول غلط 😅", "اسم المستخدم أو كلمة السر غلط 🤔 تأكد منهم وجرب تاني");
+      return;
+    }
+
+    const docSnap = snap.docs[0];
+    const student = docSnap.data();
+    const studentId = docSnap.id;
+
+    if (!(await checkPassword(student, password))) {
+      hideLoading(); loginBtn.disabled = false;
+      showPopup("❌", "بيانات الدخول غلط 😅", "اسم المستخدم أو كلمة السر غلط 🤔 تأكد منهم وجرب تاني");
+      return;
+    }
+
+    const examCheck = await getDoc(doc(db, "students", studentId, "meta", "login"));
+    if (examCheck.exists() && examCheck.data().used === true) {
+      hideLoading(); loginBtn.disabled = false;
+      showPopup("⚠️", "خد بالك 👋", "إنت داخل قبل كده يا نجم! 😅 مينفعش تدخل مرتين من هنا، ادخل من حسابك مباشرة");
+    }
+
+    await startSession(studentId, {
+      name: student.name, code: student.code,
+      username: student.username || username, phone: student.phone || ""
+    });
+
+    showLoading("أهلاً بيك يا " + (student.name || "بطل") + " 🎉");
+    setTimeout(() => { window.location.href = "home.html"; }, 1200);
+
+  } catch (err) {
+    console.error(err);
+    hideLoading(); loginBtn.disabled = false;
+    showPopup("🔥", "حدث خطأ", "حصلت مشكلة بسيطة، جرب تاني كمان شوية 🙏");
+  }
+};
+
+[usernameInput, passwordInput].forEach(el => {
+  el.addEventListener("keydown", e => { if (e.key === "Enter") loginBtn.click(); });
+});
+</script>
+</body>
+</html>

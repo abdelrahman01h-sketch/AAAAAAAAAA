@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حسابي - EduNova</title>
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="platform.css">
+</head>
+<body>
+
+<header class="nav" id="nav"></header>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>حسابي</h2>
+        <p>بياناتك ونتائج امتحاناتك السابقة.</p>
+      </div>
+    </div>
+
+    <div class="account-grid">
+      <div class="profile-card glass">
+        <div class="avatar" id="avatarLetter">?</div>
+        <h2 id="pName">--</h2>
+        <div class="kv">
+          <div><small>اسم المستخدم</small><b class="ltr" id="pUsername">--</b></div>
+          <div><small>رقم الموبايل</small><b class="ltr" id="pPhone">--</b></div>
+          <div><small>كود الطالب</small><b class="ltr" id="pCode">--</b></div>
+        </div>
+        <button class="btn btn-danger btn-block" id="logoutBtn">تسجيل الخروج</button>
+      </div>
+
+      <div class="attempts glass">
+        <h3>محاولاتي في الامتحانات</h3>
+        <div id="attemptsList">
+          <div class="skeleton" style="min-height:120px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">EduNova — Developed By Abdelrahman Mohamed</div>
+
+<script type="module">
+import {
+  db, collection, getDocs, requireStudent, renderNav, logout, escapeHtml
+} from "./platform.js";
+
+const student = requireStudent();
+if (student) {
+  renderNav("account");
+  document.getElementById("pName").textContent = student.name || "--";
+  document.getElementById("pUsername").textContent = student.username || "--";
+  document.getElementById("pPhone").textContent = student.phone || "غير مسجّل";
+  document.getElementById("pCode").textContent = student.code || "--";
+  document.getElementById("avatarLetter").textContent = (student.name || "؟").trim().charAt(0);
+  document.getElementById("logoutBtn").onclick = logout;
+  loadAttempts();
+}
+
+async function loadAttempts() {
+  const list = document.getElementById("attemptsList");
+  try {
+    const snap = await getDocs(collection(db, "students", student.id, "exams"));
+    if (snap.empty) {
+      list.innerHTML = `
+        <div class="empty-state">
+          <div class="big">📝</div>
+          <h3>لسه مقدمتش أي امتحان</h3>
+          <p>هتلاقي محاولاتك هنا بعد ما تبدأ أول امتحان.</p>
+          <a class="btn btn-primary" href="home.html">استعرض الامتحانات</a>
+        </div>`;
+      return;
+    }
+
+    list.innerHTML = snap.docs.map(d => {
+      const a = d.data();
+      const finished = a.finished === true;
+      const status = !finished ? "جاري" : (a.hasEssay && a.examGradingStatus !== "graded") ? "قيد التصحيح" : "خلصان";
+      const percent = typeof a.percent === "number" ? `${a.percent}%` : "—";
+      return `
+        <div class="attempt">
+          <div>
+            <b>${escapeHtml(a.examName || "امتحان")}</b>
+            <small>${status}${finished && typeof a.percent === "number" ? " — النتيجة: " + percent : ""}</small>
+          </div>
+          ${finished ? `<a class="btn btn-ghost" href="result.html?exam=${encodeURIComponent(a.examName || "")}">عرض النتيجة</a>` : ""}
+        </div>`;
+    }).join("");
+
+  } catch (e) {
+    console.error(e);
+    list.innerHTML = `<div class="empty-state"><div class="big">🔥</div><h3>تعذر تحميل محاولاتك</h3></div>`;
+  }
+}
+</script>
+</body>
+</html>

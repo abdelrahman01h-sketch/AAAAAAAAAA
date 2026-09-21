@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ترحيب بالامتحان - EduNova</title>
+<link rel="icon" href="icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --a1:#F59E0B;   /* amber   */
+  --a2:#EC4899;   /* pink    */
+  --a3:#8B5CF6;   /* violet  */
+  --success:#4ADE80;
+  --danger:#F87171;
+  --warning:#FBBF24;
+  --text:#FFFFFF;
+  --text-muted:rgba(255,255,255,0.68);
+  --glass:rgba(255,255,255,0.09);
+  --glass-strong:rgba(255,255,255,0.16);
+  --glass-border:rgba(255,255,255,0.22);
+  --gradient:linear-gradient(120deg,#F59E0B 0%,#EC4899 50%,#8B5CF6 100%);
+  --mono:'IBM Plex Mono',monospace;
+  --blur:22px;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; font-family:'Cairo',sans-serif; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+}
+
+html,body{ min-height:100vh; color:var(--text); -webkit-font-smoothing:antialiased; }
+
+/* ================= FIXED BACKGROUND (same identity as admin) ================= */
+body{
+  position:relative;
+  min-height:100vh;
+  background:#0a0714 url('icon.png') center center / cover no-repeat fixed;
+}
+
+body::before{
+  content:'';
+  position:fixed; inset:0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(245,158,11,0.28), transparent 45%),
+    radial-gradient(circle at 90% 15%, rgba(139,92,246,0.30), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(236,72,153,0.22), transparent 50%),
+    linear-gradient(180deg, rgba(8,6,18,0.78), rgba(8,6,18,0.88));
+  z-index:0;
+  pointer-events:none;
+}
+
+::selection{ background:var(--a2); color:#fff; }
+
+/* ================= GLASS PRIMITIVE ================= */
+.top-header,
+.hero-card,
+.info-card,
+.motivation-box,
+.rules-box,
+.countdown-box{
+  background:var(--glass);
+  backdrop-filter:blur(var(--blur)) saturate(160%);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(160%);
+  border:1px solid var(--glass-border);
+  position:relative;
+}
+
+.top-header::before,
+.hero-card::before,
+.info-card::before,
+.motivation-box::before,
+.rules-box::before{
+  content:'';
+  position:absolute; inset:0;
+  border-radius:inherit;
+  background:linear-gradient(135deg, rgba(255,255,255,0.20), rgba(255,255,255,0) 45%);
+  pointer-events:none;
+}
+
+/* ================= TOP HEADER ================= */
+.top-header{
+  position:fixed;
+  top:16px; left:16px; right:16px;
+  height:64px;
+  border-radius:22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  z-index:500;
+  box-shadow:0 8px 32px rgba(0,0,0,0.35);
+}
+
+.developer{ display:flex; align-items:center; gap:12px; z-index:1; }
+.developer img{
+  width:38px;height:38px;border-radius:12px;object-fit:cover;
+  border:1px solid var(--glass-border);
+}
+.developer h2{
+  font-size:15px;font-weight:800;
+  background:var(--gradient);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.developer span{ font-size:11px; color:var(--text-muted); font-weight:600; }
+
+.header-right{ display:flex; align-items:center; gap:8px; z-index:1; }
+.header-badge{
+  font-family:var(--mono);
+  font-size:11px; font-weight:600;
+  color:var(--text-muted);
+  background:var(--glass-strong);
+  border:1px solid var(--glass-border);
+  padding:8px 14px; border-radius:13px;
+  white-space:nowrap;
+}
+
+/* ================= MAIN ================= */
+.main{
+  position:relative;
+  z-index:1;
+  padding:104px 24px 60px;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+}
+
+.container{
+  width:1100px;
+  max-width:100%;
+  animation:fadeUp .55s ease;
+}
+
+/* ================= SPLIT LAYOUT (right = data / left = rest) ================= */
+.split-layout{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+}
+
+.data-column{
+  flex:0 0 40%;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.content-column{
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  min-width:0;
+}
+
+.data-column .info-grid{
+  grid-template-columns:1fr;
+  margin-bottom:18px;
+}
+.data-column .info-grid:last-of-type{ margin-bottom:0; }
+
+@media (max-width:992px){
+  .split-layout{ flex-direction:column; gap:20px; }
+  .data-column{ flex:1 1 auto; width:100%; }
+  .data-column .info-grid{ grid-template-columns:repeat(2,1fr); margin-bottom:0; }
+}
+@media (max-width:640px){
+  .data-column .info-grid{ grid-template-columns:1fr; }
+}
+
+@keyframes fadeUp{
+  from{ opacity:0; transform:translateY(16px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* ================= HERO / WELCOME CARD ================= */
+.hero-card{
+  border-radius:24px;
+  padding:28px;
+  text-align:center;
+  margin-bottom:20px;
+  box-shadow:0 14px 40px rgba(0,0,0,0.35);
+}
+
+.hero-card h1{
+  font-size:32px; font-weight:800;
+  background:var(--gradient);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  z-index:1; position:relative;
+  min-height:40px;
+}
+
+.hero-card p{
+  margin-top:8px; font-size:16px; color:var(--text-muted);
+  z-index:1; position:relative;
+}
+
+/* ================= INFO GRID ================= */
+.section-title{ margin:26px 0 12px; font-size:18px; font-weight:800; color:var(--text-muted); }
+
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.info-card{
+  border-radius:20px;
+  padding:18px;
+  display:flex; align-items:center; gap:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  transition:.25s ease;
+}
+.info-card:hover{ transform:translateY(-5px); border-color:rgba(255,255,255,0.4); }
+
+.info-card .icon{
+  font-size:26px; width:56px; height:56px; flex-shrink:0;
+  border-radius:14px; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, rgba(245,158,11,0.5), rgba(236,72,153,0.4));
+  z-index:1;
+}
+.info-card:nth-child(3n-1) .icon{ background:linear-gradient(135deg, rgba(139,92,246,0.5), rgba(236,72,153,0.4)); }
+.info-card:nth-child(3n) .icon{ background:linear-gradient(135deg, rgba(236,72,153,0.5), rgba(245,158,11,0.4)); }
+
+.info-card h3{ font-size:14px; color:var(--text-muted); font-weight:700; z-index:1; position:relative; }
+.info-card p{ font-size:21px; font-weight:800; font-family:var(--mono); margin-top:4px; z-index:1; position:relative; word-break:break-word; }
+
+/* ================= MOTIVATION ================= */
+.motivation-box{
+  border-radius:22px; padding:22px;
+  text-align:center; margin-top:20px;
+  box-shadow:0 12px 34px rgba(0,0,0,0.3);
+}
+.motivation-box h3{ font-size:15px; color:var(--text-muted); font-weight:700; margin-bottom:10px; z-index:1; position:relative; }
+#motivationText{
+  font-size:19px; font-weight:600; line-height:2;
+  color:var(--text); z-index:1; position:relative;
+}
+
+/* ================= RULES ================= */
+.rules-box{
+  border-radius:22px; padding:28px;
+  margin-top:16px;
+  min-height:130px;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  box-shadow:0 12px 34px rgba(0,0,0,0.3);
+  overflow:hidden;
+}
+.rules-box h3{ position:absolute; top:16px; right:22px; font-size:14px; color:var(--text-muted); font-weight:700; z-index:1; }
+
+#ruleText{
+  font-size:22px; font-weight:800; line-height:1.8;
+  color:var(--text);
+  max-width:92%;
+  transition:all .5s cubic-bezier(.22,1,.36,1);
+  z-index:1; position:relative;
+}
+.rule-out{ opacity:0; transform:translateY(18px) scale(.94); filter:blur(6px); }
+.rule-in{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+
+/* ================= START WRAP ================= */
+.start-wrap{
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  margin-top:30px;
+}
+
+.circle-timer{ position:relative; width:96px; height:96px; }
+.circle-timer svg{ width:96px; height:96px; transform:rotate(-90deg); }
+circle{ fill:none; stroke-width:8; r:36; cx:45; cy:45; }
+.bg{ stroke:rgba(255,255,255,0.12); }
+.progress{
+  stroke:var(--a2);
+  stroke-linecap:round;
+  stroke-dasharray:226;
+  stroke-dashoffset:0;
+  transition:1s linear;
+  filter:drop-shadow(0 0 6px rgba(236,72,153,0.4));
+}
+.timer-text{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:19px; font-weight:900; font-family:var(--mono); color:var(--text);
+}
+
+.start-btn{
+  min-width:280px;
+  padding:17px 32px; border-radius:16px;
+  border:1px solid rgba(255,255,255,0.35);
+  font-weight:800; font-size:18px;
+  transition:.25s ease; cursor:pointer;
+}
+.start-btn.locked{
+  background:var(--glass-strong);
+  color:var(--text-muted);
+  border:1px solid var(--glass-border);
+  cursor:not-allowed;
+}
+.start-btn.unlocked{
+  background:var(--gradient);
+  color:#fff;
+  box-shadow:0 10px 26px rgba(236,72,153,0.32);
+  animation:unlockPop .5s ease;
+}
+.start-btn.unlocked:hover{ transform:translateY(-3px); }
+.start-btn:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
+
+@keyframes unlockPop{
+  0%{ transform:scale(.85); filter:blur(4px); }
+  60%{ transform:scale(1.06); }
+  100%{ transform:scale(1); }
+}
+
+.fire-badge{
+  position:absolute; top:-8px; right:-8px;
+  background:linear-gradient(135deg, var(--danger), #dc2626);
+  color:#fff; padding:5px 10px; border-radius:12px;
+  font-size:11px; font-weight:900;
+  box-shadow:0 0 15px rgba(239,68,68,0.5);
+  animation:pulseFire 1s infinite;
+  display:none;
+}
+@keyframes pulseFire{ 0%{transform:scale(1)} 50%{transform:scale(1.1)} 100%{transform:scale(1)} }
+
+.fire-mode .timer-text{ color:var(--danger); text-shadow:0 0 14px rgba(239,68,68,0.6); animation:fireShake .4s infinite; }
+.fire-mode .progress{ stroke:var(--danger) !important; }
+.fire-mode .start-btn.locked{ background:rgba(239,68,68,0.14); border:1px solid rgba(239,68,68,0.4); }
+
+@keyframes fireShake{
+  0%{transform:translate(0)} 25%{transform:translate(-1px,1px)}
+  50%{transform:translate(1px,-1px)} 75%{transform:translate(-1px,0)} 100%{transform:translate(0)}
+}
+
+/* ================= OVERLAY / COUNTDOWN ================= */
+.overlay{
+  position:fixed; inset:0;
+  background:rgba(5,3,12,0.7);
+  backdrop-filter:blur(8px);
+  display:flex; align-items:center; justify-content:center;
+  z-index:99999; padding:20px;
+}
+.hidden{ display:none !important; }
+
+.countdown-box{
+  text-align:center; padding:34px 40px; border-radius:26px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  animation:pop .25s ease;
+}
+.countdown-box h2{ font-size:17px; font-weight:800; z-index:1; position:relative; }
+#countNumber{
+  font-size:58px; font-weight:900; margin-top:10px;
+  background:var(--gradient);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  z-index:1; position:relative;
+}
+@keyframes pop{ from{ transform:scale(.9); opacity:0; } to{ transform:scale(1); opacity:1; } }
+
+/* ===================================================
+   DESKTOP — two columns (right: data / left: rest), free scroll
+===================================================*/
+@media (min-width:993px){
+  html, body{ min-height:100vh; }
+
+  .main{
+    min-height:100vh;
+    padding:100px 28px 40px;
+    align-items:flex-start;
+  }
+
+  .container{ animation:none; }
+
+  .hero-card{ padding:20px 26px; border-radius:20px; margin-bottom:0; }
+
+  .section-title{ margin:0 0 10px; }
+
+  .info-grid{ gap:12px; }
+  .info-card{ padding:14px 16px; gap:12px; border-radius:16px; }
+
+  .motivation-box{ padding:18px 22px; margin-top:0; border-radius:18px; }
+
+  .rules-box{ padding:20px 24px; margin-top:0; border-radius:18px; min-height:110px; }
+
+  .start-wrap{ margin-top:6px; gap:16px; flex-direction:row; justify-content:center; }
+  .circle-timer{ width:76px; height:76px; }
+  .circle-timer svg{ width:76px; height:76px; }
+  .timer-text{ font-size:16px; }
+}
+
+/* ===================================================
+   RESPONSIVE (MOBILE / TABLET — free scroll)
+===================================================*/
+@media (max-width:992px){
+  .info-grid{ grid-template-columns:repeat(2,1fr); }
+  .main{ padding:96px 20px 50px; }
+}
+
+@media (max-width:640px){
+  .info-grid{ grid-template-columns:1fr; }
+  .hero-card{ padding:22px; border-radius:20px; }
+  .hero-card h1{ font-size:20px; }
+  .rules-box{ padding:20px; }
+  #ruleText{ font-size:16px; }
+  .motivation-box{ padding:18px; }
+  #motivationText{ font-size:14.5px; }
+  .start-btn{ min-width:100%; }
+  .developer span{ display:none; }
+  .header-badge{ font-size:10px; padding:7px 10px; }
+}
+
+@media (max-width:480px){
+  .main{ padding:86px 14px 40px; }
+  .top-header{ top:10px; left:10px; right:10px; height:58px; border-radius:18px; padding:0 14px; }
+  .hero-card h1{ font-size:18px; }
+  .countdown-box{ padding:26px; }
+  #countNumber{ font-size:44px; }
+}
+</style>
+</head>
+<body>
+
+  <header class="top-header">
+    <div class="developer">
+      <img src="icon.png" alt="EduNova">
+      <div>
+        <h2>EduNova</h2>
+        <span>Developed By Abdelrahman Mohamed</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <a href="home.html" class="header-badge" style="text-decoration:none;">🏠 الرئيسية</a>
+      <span class="header-badge">📝 صفحة الترحيب</span>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <div class="split-layout">
+
+        <!-- ===== RIGHT SIDE: DATA ===== -->
+        <div class="data-column">
+
+          <!-- ===== EXAM INFO ===== -->
+          <div class="section-title">📚 بيانات الامتحان</div>
+          <div class="info-grid">
+            <div class="info-card">
+              <div class="icon">📚</div>
+              <div>
+                <h3>📛 اسم الامتحان</h3>
+                <p id="examName">--</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="icon">⏱</div>
+              <div>
+                <h3>⏱️ مدته قد إيه</h3>
+                <p id="examTime">--</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="icon">❓</div>
+              <div>
+                <h3>🔢 عدد الأسئلة</h3>
+                <p id="examQuestions">--</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== STUDENT INFO ===== -->
+          <div class="section-title">👤 بياناتك انت</div>
+          <div class="info-grid">
+            <div class="info-card">
+              <div class="icon">👤</div>
+              <div>
+                <h3>الطالب</h3>
+                <p id="studentName">--</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="icon">🔐</div>
+              <div>
+                <h3>👤 اسم المستخدم</h3>
+                <p id="studentCode">--</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ===== LEFT SIDE: HERO + MOTIVATION + RULES + START ===== -->
+        <div class="content-column">
+
+          <!-- ===== WELCOME HERO ===== -->
+          <div class="hero-card">
+            <h1 id="welcome">مرحباً 👋</h1>
+            <p>اقرا التعليمات تحت دي كويس عشان الامتحان يعدي معاك على الماشي 😉</p>
+          </div>
+
+          <!-- ===== MOTIVATION ===== -->
+          <div class="motivation-box">
+            <h3>💡 كلمتين قبل ما تبدأ</h3>
+            <p id="motivationText">
+              اطلبِ العلمَ ولا تَكسَلْ فَما أبعدَ الخيرَ عن أهلِ الكَسَلِ<br>
+              واهجُرِ النومَ وحَصِّلْهُ فَمَن يَعرِفُ المَطلوبَ يَحْقِرُ ما بَذَلَ
+            </p>
+          </div>
+
+          <!-- ===== RULES ===== -->
+          <div class="rules-box">
+            <h3>📌 قبل ما تبدأ، خد بالك من كده</h3>
+            <p id="ruleText">...</p>
+          </div>
+
+          <!-- ===== START ===== -->
+          <div class="start-wrap">
+            <div class="circle-timer">
+              <svg>
+                <circle class="bg"></circle>
+                <circle class="progress" id="progressCircle"></circle>
+              </svg>
+              <div class="timer-text"><span id="startTimer">30</span></div>
+              <div class="fire-badge" id="fireBadge">🔥 5s</div>
+            </div>
+
+            <button onclick="startExamCountdown()" id="startBtn" disabled class="start-btn locked">
+              🔒 مقفل
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="startOverlay" class="overlay hidden">
+    <div class="countdown-box">
+      <h2>يلا نجهز نفسنا للامتحان 💪</h2>
+      <div id="countNumber">5</div>
+    </div>
+  </div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+/* ================= FIREBASE ================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyB6_HkPcbAhyZG8joikJr_kPK-6UACxldg",
+  authDomain: "plat-form-97b8d.firebaseapp.com",
+  projectId: "plat-form-97b8d",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const startBtn = document.getElementById("startBtn");
+const timerEl = document.getElementById("startTimer");
+const circle = document.getElementById("progressCircle");
+const wrapper = document.querySelector(".start-wrap");
+const fireBadge = document.getElementById("fireBadge");
+
+let timeLeft = 30;
+let total = 30;
+
+const circumference = 226;
+circle.style.strokeDasharray = circumference;
+
+startBtn.disabled = true;
+
+const interval = setInterval(() => {
+
+  timeLeft--;
+  timerEl.innerText = timeLeft;
+
+  /* progress */
+  let progress = (timeLeft / total) * circumference;
+  circle.style.strokeDashoffset = circumference - progress;
+
+  /* 🔥 FIRE MODE (آخر 5 ثواني) */
+  if (timeLeft <= 5) {
+
+    wrapper.classList.add("fire-mode");
+
+    if (fireBadge) {
+      fireBadge.style.display = "block";
+    }
+
+    /* صوت تنبيه خفيف */
+    const beep = new Audio("https://www.soundjay.com/buttons/sounds/beep-07.mp3");
+    beep.volume = 0.3;
+    beep.play();
+  }
+
+  /* ⛔ انتهاء الوقت */
+  if (timeLeft <= 0) {
+
+    clearInterval(interval);
+
+    startBtn.disabled = false;
+    startBtn.classList.remove("locked");
+    startBtn.classList.add("unlocked");
+
+    startBtn.innerHTML = "🚀 يلا بينا نبدأ!";
+
+    if (fireBadge) {
+      fireBadge.style.display = "none";
+    }
+
+    wrapper.classList.remove("fire-mode");
+
+    circle.style.stroke = "#4ADE80";
+  }
+
+}, 1000);
+
+/* ================== حماية الدخول ================== */
+const studentId = localStorage.getItem("studentId");
+const studentName = localStorage.getItem("studentName");
+const studentCode = localStorage.getItem("studentUsername") || localStorage.getItem("studentCode");
+
+if (!studentId) {
+  window.location.href = "index.html";
+}
+
+const welcome = document.getElementById("welcome");
+
+function typeText(text, el) {
+  let i = 0;
+  el.innerHTML = "";
+
+  const interval = setInterval(() => {
+    el.innerHTML = text.slice(0, i) + "👋";
+    i++;
+
+    if (i > text.length) {
+      clearInterval(interval);
+      el.innerHTML = text + " 👋";
+    }
+  }, 80);
+}
+
+typeText(`أهلاً بيك يا ${studentName || "بطل"} 👋`, welcome);
+
+/* ================== عرض بيانات الطالب ================== */
+document.getElementById("studentName").innerText = studentName || "--";
+document.getElementById("studentCode").innerText = studentCode || "--";
+
+/* ================== بيانات الامتحان ================== */
+let examData = null;
+let examId = null;
+
+/* ================== تحميل الامتحان ================== */
+async function loadExam() {
+
+  /* لو الطالب جاي من صفحة تفاصيل امتحان معين (exam-details.html) بيبقى
+     معاه ?exam=<examId> في الرابط، فبنحمل الامتحان ده بالتحديد.
+     لو الرابط مفيهوش باراميتر (فتح الصفحة قديمًا زي ما كانت) بنرجع
+     لنفس السلوك القديم: أول امتحان موجود في المجموعة. */
+  const requestedId = new URLSearchParams(window.location.search).get("exam");
+
+  let examDoc;
+  if (requestedId) {
+    const snap = await getDoc(doc(db, "exams", requestedId));
+    if (!snap.exists()) return;
+    examDoc = snap;
+  } else {
+    const snap = await getDocs(collection(db, "exams"));
+    if (snap.empty) return;
+    examDoc = snap.docs[0];
+  }
+
+  examData = examDoc.data();
+  examId = examDoc.id;
+
+  document.getElementById("examName").innerText = examData.name || "--";
+  document.getElementById("examTime").innerText = (examData.time || "--") + " دقيقة";
+
+  const qSnap = await getDocs(collection(db, "exams", examId, "questions"));
+  document.getElementById("examQuestions").innerText = qSnap.size;
+
+  checkIfAlreadyTaken();
+}
+
+loadExam();
+
+/* ================== منع إعادة الامتحان ================== */
+async function checkIfAlreadyTaken() {
+
+  const ref = doc(db, "students", studentId, "exams", examData.name);
+  const snap = await getDoc(ref);
+
+  if (snap.exists() && snap.data().finished === true) {
+    showPopup("إنت خلصت الامتحان ده قبل كده يا كبير 😅");
+  }
+}
+
+/* ================== Popup بدل alert ================== */
+function showPopup(text) {
+
+  const overlay = document.createElement("div");
+
+  overlay.innerHTML = `
+    <div style="
+      position:fixed;
+      inset:0;
+      background:rgba(5,3,12,0.75);
+      backdrop-filter:blur(6px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+    ">
+      <div style="
+        background:rgba(255,255,255,0.09);
+        backdrop-filter:blur(22px) saturate(160%);
+        border:1px solid rgba(255,255,255,0.22);
+        padding:28px;
+        border-radius:22px;
+        text-align:center;
+        width:320px;
+        max-width:90vw;
+        color:#fff;
+        box-shadow:0 20px 60px rgba(0,0,0,0.5);
+      ">
+        <h3 style="margin-bottom:16px;font-size:16px;">${text}</h3>
+
+        <button id="okBtn"
+          style="
+            padding:11px 22px;
+            border:1px solid rgba(255,255,255,0.35);
+            border-radius:14px;
+            background:linear-gradient(120deg,#F59E0B 0%,#EC4899 50%,#8B5CF6 100%);
+            color:#fff;
+            cursor:pointer;
+            font-weight:700;
+            font-family:'Cairo',sans-serif;
+          ">
+          تمام ✅
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  document.getElementById("okBtn").onclick = () => {
+    window.location.href = "result.html";
+  };
+}
+
+/* ================== بدء الامتحان ================== */
+window.startExamCountdown = function () {
+  const elem = document.documentElement;
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen().then(() => {
+      proceedToCountdown();
+    }).catch(err => {
+      alert("يجب تفعيل وضع ملء الشاشة للمتابعة!");
+    });
+  } else if (elem.webkitRequestFullscreen) { /* Safari */
+    elem.webkitRequestFullscreen();
+    proceedToCountdown();
+  } else if (elem.msRequestFullscreen) { /* IE11 */
+    elem.msRequestFullscreen();
+    proceedToCountdown();
+  }
+};
+
+function proceedToCountdown() {
+  const overlay = document.getElementById("startOverlay");
+  const count = document.getElementById("countNumber");
+
+  overlay.classList.remove("hidden");
+
+  let num = 5;
+  count.innerText = num;
+
+  const interval = setInterval(() => {
+    num--;
+    count.innerText = num;
+    if (num === 0) {
+      clearInterval(interval);
+      startExam();
+    }
+  }, 1000);
+}
+
+/* ================== تسجيل المحاولة ثم الدخول ================== */
+async function startExam() {
+
+  const ref = doc(db, "students", studentId, "exams", examData.name);
+
+  await setDoc(ref, {
+    started: true,
+    finished: false,
+    startTime: Date.now()
+  }, { merge: true });
+
+  window.location.href = examId ? `exam.html?exam=${encodeURIComponent(examId)}` : "exam.html";
+}
+
+const rules = [
+  "📖 اقرا كل سؤال كويس وماتستعجلش خالص",
+  "⏱️ الوقت محدود، وزّعه صح على الأسئلة",
+  "🧠 الامتحان يعتمد على الفهم وليس الحفظ فقط",
+  "💾 إجاباتك بتتحفظ لوحدها وانت بتحل، متقلقش",
+  "🚫 متخرجش أو تفتح تبويب تاني وانت في الامتحان",
+  "🎯 خللي بالك، كل سؤال ممكن يفرق في درجتك",
+  "🔒 لما تسلّم مش هتقدر تدخل تاني، فخد وقتك",
+  "📊 راجع إجاباتك كويس قبل ما تضغط تسليم",
+  "✨ خد نفس عميق وركّز، إنت هتعملها 🌟"
+];
+
+let ruleIndex = 0;
+const ruleText = document.getElementById("ruleText");
+
+function showRule(text) {
+
+  ruleText.classList.remove("rule-in");
+  ruleText.classList.add("rule-out");
+
+  setTimeout(() => {
+
+    ruleText.innerHTML = text;
+
+    ruleText.classList.remove("rule-out");
+    ruleText.classList.add("rule-in");
+
+  }, 450);
+}
+
+function startRulesLoop() {
+
+  showRule(rules[0]);
+
+  setInterval(() => {
+
+    ruleIndex = (ruleIndex + 1) % rules.length;
+
+    showRule(rules[ruleIndex]);
+
+  }, 3000);
+}
+
+startRulesLoop();
+</script>
+
+</body>
+</html>

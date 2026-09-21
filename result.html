@@ -1,0 +1,2980 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>النتيجة النهائية - EduNova</title>
+<link rel="icon" href="icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --a1:#F59E0B;   /* amber   */
+  --a2:#EC4899;   /* pink    */
+  --a3:#8B5CF6;   /* violet  */
+  --success:#4ADE80;
+  --danger:#F87171;
+  --warning:#FBBF24;
+  --text:#FFFFFF;
+  --text-muted:rgba(255,255,255,0.68);
+  --glass:rgba(255,255,255,0.09);
+  --glass-strong:rgba(255,255,255,0.16);
+  --glass-border:rgba(255,255,255,0.22);
+  --gradient:linear-gradient(120deg,#F59E0B 0%,#EC4899 50%,#8B5CF6 100%);
+  --danger-gradient:linear-gradient(120deg,#F87171 0%,#EC4899 100%);
+  --mono:'IBM Plex Mono',monospace;
+}
+
+*{ box-sizing:border-box; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+}
+
+body{
+  font-family:'Cairo',sans-serif;
+  position:relative;
+  min-height:100vh;
+  overflow-x:hidden;
+  background:#0a0714 url('icon.png') center center / cover no-repeat fixed;
+  color:var(--text);
+  padding:20px;
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior:none;
+}
+
+body::before{
+  content:'';
+  position:fixed; inset:0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(245,158,11,0.28), transparent 45%),
+    radial-gradient(circle at 90% 15%, rgba(139,92,246,0.30), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(236,72,153,0.22), transparent 50%),
+    linear-gradient(180deg, rgba(8,6,18,0.78), rgba(8,6,18,0.88));
+  z-index:0;
+  pointer-events:none;
+}
+
+body > *{ position:relative; z-index:1; }
+
+::selection{ background:var(--a2); color:#fff; }
+
+/* ================= TOP BRAND (redesign) ================= */
+.top-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  max-width:1200px;
+  margin:0 auto 18px;
+  padding:4px 6px;
+}
+.top-brand img{
+  width:40px; height:40px;
+  border-radius:12px;
+  object-fit:cover;
+  border:1px solid var(--glass-border);
+  box-shadow:0 6px 16px rgba(0,0,0,0.35);
+}
+.top-brand h1{
+  font-size:17px;
+  font-weight:800;
+  background:var(--gradient);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.top-brand span{
+  display:block;
+  font-size:11px;
+  color:var(--text-muted);
+  font-weight:600;
+}
+
+/* ================= HEADER ================= */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+
+  padding:20px;
+  border-radius:22px;
+
+  background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(6,182,212,0.10));
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(18px);
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+
+  position:relative;
+  overflow:hidden;
+}
+
+/* glow */
+.header::before{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  background:radial-gradient(circle, rgba(124,58,237,0.25), transparent);
+  top:-100px;
+  right:-100px;
+  filter:blur(20px);
+}
+
+/* ================= USER ================= */
+.user-box{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.avatar{
+  width:55px;
+  height:55px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#8B5CF6,#EC4899);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  box-shadow:0 0 15px rgba(124,58,237,0.4);
+  animation:pulse 2s infinite;
+}
+
+.user-info h2{
+  font-size:18px;
+  font-weight:800;
+  margin:0;
+  background:linear-gradient(90deg,#8B5CF6,#EC4899);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.user-info p{
+  font-size:13px;
+  opacity:0.85;
+  margin:3px 0;
+}
+
+/* ================= PROGRESS ================= */
+.progress-box{
+  flex:1;
+  text-align:center;
+}
+
+.progress-title{
+  font-size:13px;
+  margin-bottom:6px;
+  opacity:0.8;
+}
+
+.progress-bar{
+  width:100%;
+  height:10px;
+  background:rgba(255,255,255,0.08);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#8B5CF6,#EC4899);
+  transition:0.4s ease;
+}
+
+/* ================= STATUS ================= */
+.status-box{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+.status-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#4ADE80;
+  box-shadow:0 0 10px #4ADE80;
+  animation:pulse 1.5s infinite;
+}
+
+/* ================= STATS ================= */
+.stats{
+  margin-top:25px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:18px;
+}
+
+.card{
+  padding:18px;
+  border-radius:18px;
+  text-align:center;
+
+  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(18px);
+
+  transition:0.3s;
+}
+
+.card:hover{
+  transform: translateY(-6px);
+}
+
+.card span{
+  display:block;
+  font-size:22px;
+  font-weight:900;
+  margin-top:8px;
+}
+
+/* colors */
+.card.total{border-color:#8B5CF6}
+.card.percent{border-color:#EC4899}
+.card.correct{border-color:#4ADE80}
+.card.wrong{border-color:#F87171}
+
+/* ================= QUESTIONS ================= */
+.questions{
+  margin-top:25px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+/* CARD */
+.q-card{
+  background: rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:18px;
+  overflow:hidden;
+  backdrop-filter: blur(15px);
+}
+
+/* QUESTION TOP */
+.q-title{
+  padding:12px;
+  text-align:center;
+  font-weight:800;
+  background: rgba(0,0,0,0.25);
+}
+
+/* BODY */
+.q-body{
+  display:flex;
+  gap:15px;
+  padding:15px;
+  align-items:stretch;
+}
+
+/* LEFT ANSWERS */
+.answers{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.answer{
+  padding:12px;
+  border-radius:12px;
+  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  transition:0.3s;
+}
+
+.answer:hover{
+  transform:scale(1.02);
+}
+
+/* correct / wrong */
+.correct{
+  background:#4ADE80 !important;
+  color:white;
+}
+
+.wrong{
+  background:#F87171 !important;
+  color:white;
+}
+
+/* ================= IMAGE RIGHT FULL ================= */
+.q-media{
+  flex:1;
+  display:flex;
+}
+
+.q-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:14px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:1024px){
+  .stats{
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  }
+}
+
+@media(max-width:768px){
+  body{
+    padding:12px;
+  }
+
+  .header{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .q-body{
+    flex-direction:column;
+    grid-template-columns:1fr !important;
+  }
+
+  .q-image{
+    height:220px;
+  }
+
+  .stats{
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:14px;
+  }
+
+  .info-row{
+    justify-content:center;
+  }
+}
+
+@media(max-width:480px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .q-title{
+    font-size:18px !important;
+    padding:16px !important;
+  }
+
+  .user-info h2{
+    font-size:22px !important;
+  }
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes pulse{
+  0%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.2);opacity:0.6}
+  100%{transform:scale(1);opacity:1}
+}
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+
+  padding:22px;
+  border-radius:22px;
+
+  background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(6,182,212,0.12));
+  border:1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.45);
+
+  position:relative;
+  overflow:hidden;
+}
+
+/* glow خلفي */
+.header::before{
+  content:"";
+  position:absolute;
+  width:280px;
+  height:280px;
+  background: radial-gradient(circle, rgba(124,58,237,0.25), transparent 70%);
+  top:-120px;
+  right:-120px;
+  filter:blur(25px);
+}
+
+.header::after{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  background: radial-gradient(circle, rgba(6,182,212,0.18), transparent 70%);
+  bottom:-100px;
+  left:-100px;
+  filter:blur(25px);
+}
+
+/* ================= USER BLOCK ================= */
+.user-box{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.avatar{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background: linear-gradient(135deg,#8B5CF6,#EC4899);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  box-shadow:0 0 18px rgba(124,58,237,0.4);
+  animation: pulse 2s infinite;
+}
+
+.user-info h2{
+  font-size:18px;
+  font-weight:800;
+  margin:0;
+  background: linear-gradient(90deg,#8B5CF6,#EC4899);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.user-info p{
+  font-size:13px;
+  margin:4px 0;
+  opacity:0.85;
+}
+
+.user-info span{
+  color:#EC4899;
+  font-weight:700;
+}
+
+/* ================= ANALYSIS BUTTON ================= */
+.analysis-btn{
+  margin-top:10px;
+  padding:10px 14px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+
+  background: linear-gradient(135deg,#8B5CF6,#EC4899);
+  color:white;
+  font-weight:700;
+  font-size:13px;
+
+  transition:0.3s;
+  box-shadow:0 8px 20px rgba(99,102,241,0.25);
+}
+
+.analysis-btn:hover{
+  transform: translateY(-3px);
+  box-shadow:0 12px 25px rgba(99,102,241,0.35);
+}
+
+/* ================= ANALYSIS BOX ================= */
+.analysis-box{
+  margin-top:10px;
+  padding:14px;
+  border-radius:14px;
+
+  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+
+  display:none;
+
+  animation: fadeIn 0.3s ease;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes pulse{
+  0%{transform:scale(1);opacity:1}
+  50%{transform:scale(1.2);opacity:0.6}
+  100%{transform:scale(1);opacity:1}
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(-8px)}
+  to{opacity:1; transform:translateY(0)}
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#8B5CF6,#EC4899,#4ADE80);
+  transition: width 1s ease;
+  box-shadow:0 0 20px rgba(6,182,212,0.4);
+}
+.header {
+  animation: headerIn 0.8s ease forwards;
+}
+
+@keyframes headerIn {
+  from {
+    transform: translateY(-20px) scale(0.98);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.avatar {
+  animation: pulse 2s infinite, float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.q-card {
+  animation: cardIn 0.5s ease forwards;
+  opacity: 1;
+}
+
+@keyframes cardIn {
+  from {
+    transform: translateY(30px) rotateX(20deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) rotateX(0);
+    opacity: 1;
+  }
+}
+
+.status-fire {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid #F87171;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+  animation: shake 0.6s infinite;
+}
+
+@keyframes shake {
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-2px)}
+  50%{transform:translateX(2px)}
+  75%{transform:translateX(-2px)}
+}
+/*======================
+    STATS UI UPGRADE
+=======================*/
+
+.stats{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+}
+
+.card{
+    position:relative;
+    overflow:hidden;
+
+    padding:28px 20px;
+
+    border-radius:26px;
+
+    background:
+    linear-gradient(
+    145deg,
+    rgba(255,255,255,.09),
+    rgba(255,255,255,.03));
+
+    border:1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(25px) saturate(180%);
+
+    box-shadow:
+    0 20px 45px rgba(0,0,0,.35),
+    inset 0 0 25px rgba(255,255,255,.03);
+
+    transition:
+    .55s cubic-bezier(.22,1,.36,1);
+
+    text-align:center;
+}
+
+/* Animated Border */
+
+.card::before{
+
+content:"";
+
+position:absolute;
+
+inset:-2px;
+
+border-radius:inherit;
+
+padding:2px;
+
+background:
+
+linear-gradient(
+120deg,
+#8B5CF6,
+#EC4899,
+#4ADE80,
+#8B5CF6);
+
+background-size:300%;
+
+animation:borderMove 8s linear infinite;
+
+-webkit-mask:
+linear-gradient(#000 0 0) content-box,
+linear-gradient(#000 0 0);
+
+-webkit-mask-composite:xor;
+
+mask-composite:exclude;
+
+pointer-events:none;
+
+}
+
+/* Shine */
+
+.card::after{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-120%;
+
+width:60%;
+
+height:100%;
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.28),
+transparent);
+
+transform:skewX(-20deg);
+
+animation:shine 5s infinite;
+
+pointer-events:none;
+
+}
+
+/* Hover */
+
+.card:hover{
+
+transform:
+translateY(-12px)
+scale(1.03);
+
+box-shadow:
+0 35px 60px rgba(0,0,0,.45);
+
+}
+
+/* Icon */
+
+.card i,
+.card .icon{
+
+width:75px;
+
+height:75px;
+
+margin:auto;
+
+margin-bottom:15px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:34px;
+
+border-radius:50%;
+
+background:
+linear-gradient(135deg,#8B5CF6,#EC4899);
+
+box-shadow:
+0 0 25px rgba(6,182,212,.45);
+
+animation:floatIcon 3s ease infinite;
+
+}
+
+/* Numbers */
+
+.card span{
+
+display:block;
+
+margin-top:10px;
+
+font-family:var(--mono);
+
+font-size:46px;
+
+font-weight:900;
+
+background:
+var(--gradient);
+
+-webkit-background-clip:text;
+
+color:transparent;
+
+}
+
+/* Small text */
+
+.card small{
+
+display:block;
+
+margin-top:10px;
+
+opacity:.7;
+
+font-size:13px;
+
+}
+
+/* ================= CARD ICON / TITLE / GLOW (redesign) ================= */
+.card-icon{
+  width:56px;
+  height:56px;
+  margin:0 auto 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+  border-radius:16px;
+  background:var(--gradient);
+  box-shadow:0 8px 22px rgba(0,0,0,0.35);
+  position:relative;
+  z-index:2;
+}
+
+.card-title{
+  font-size:13px;
+  font-weight:700;
+  opacity:.85;
+  letter-spacing:.3px;
+  position:relative;
+  z-index:2;
+}
+
+.card-glow{
+  position:absolute;
+  top:50%; left:50%;
+  width:140px; height:140px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  filter:blur(30px);
+  opacity:.35;
+  pointer-events:none;
+  z-index:0;
+  animation:glowPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+  0%,100%{ opacity:.25; transform:translate(-50%,-50%) scale(1); }
+  50%{ opacity:.45; transform:translate(-50%,-50%) scale(1.15); }
+}
+
+.card.total .card-icon{ background:linear-gradient(135deg,var(--a3),#6d28d9); }
+.card.total .card-glow{ background:var(--a3); }
+
+.card.percent .card-icon{ background:linear-gradient(135deg,var(--a2),#be185d); }
+.card.percent .card-glow{ background:var(--a2); }
+
+.card.correct .card-icon{ background:linear-gradient(135deg,var(--success),#16a34a); }
+.card.correct .card-glow{ background:var(--success); }
+
+.card.wrong .card-icon{ background:linear-gradient(135deg,var(--danger),#b91c1c); }
+.card.wrong .card-glow{ background:var(--danger); }
+
+.card.blank .card-icon{ background:linear-gradient(135deg,var(--warning),#b45309); }
+.card.blank .card-glow{ background:var(--warning); }
+
+/* Individual Glow */
+
+.card.total{
+
+box-shadow:
+0 0 25px rgba(139,92,246,.18);
+
+}
+
+.card.percent{
+
+box-shadow:
+0 0 25px rgba(236,72,153,.20);
+
+}
+
+.card.correct{
+
+box-shadow:
+0 0 25px rgba(74,222,128,.20);
+
+}
+
+.card.wrong{
+
+box-shadow:
+0 0 25px rgba(248,113,113,.18);
+
+}
+
+.card.blank{
+
+border-color:var(--warning);
+
+box-shadow:
+0 0 25px rgba(251,191,36,.18);
+
+}
+
+/* Badge */
+.badge{
+  display:inline-block;
+  margin-top:10px;
+  padding:6px 16px;
+  border-radius:99px;
+  font-size:12.5px;
+  font-weight:800;
+  color:#fff;
+  box-shadow:0 6px 16px rgba(0,0,0,0.3);
+}
+
+/* Floating Animation */
+
+@keyframes floatIcon{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+}
+
+/* Border */
+
+@keyframes borderMove{
+
+0%{
+
+background-position:0%;
+
+}
+
+100%{
+
+background-position:300%;
+
+}
+
+}
+
+/* Shine */
+
+@keyframes shine{
+
+100%{
+
+left:220%;
+
+}
+
+}
+
+/*=============================
+        USER CARD UPGRADE
+==============================*/
+
+.user-box{
+
+display:flex;
+
+align-items:center;
+
+gap:22px;
+
+}
+
+/* Avatar */
+
+.avatar{
+
+width:85px;
+
+height:85px;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:38px;
+
+background:
+
+linear-gradient(
+135deg,
+#8B5CF6,
+#EC4899);
+
+box-shadow:
+
+0 0 35px rgba(124,58,237,.45);
+
+position:relative;
+
+overflow:hidden;
+
+animation:avatarFloat 4s ease infinite;
+
+}
+
+.avatar::before{
+
+content:"";
+
+position:absolute;
+
+width:140%;
+
+height:140%;
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.35),
+transparent);
+
+transform:rotate(35deg);
+
+animation:avatarShine 4s linear infinite;
+
+}
+
+/* Name */
+
+.user-info h2{
+
+font-size:30px;
+
+font-weight:900;
+
+margin-bottom:15px;
+
+background:
+
+linear-gradient(
+90deg,
+#fff,
+#EC4899);
+
+-webkit-background-clip:text;
+
+color:transparent;
+
+letter-spacing:.5px;
+
+}
+
+/* Chips */
+
+.info-row{
+
+display:flex;
+
+gap:14px;
+
+flex-wrap:wrap;
+
+}
+
+.info-chip{
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:12px 18px;
+
+border-radius:18px;
+
+background:
+
+rgba(255,255,255,.07);
+
+border:
+
+1px solid rgba(255,255,255,.1);
+
+backdrop-filter:
+
+blur(15px);
+
+transition:.4s;
+
+}
+
+.info-chip:hover{
+
+transform:
+
+translateY(-4px);
+
+background:
+
+rgba(255,255,255,.11);
+
+}
+
+.info-chip span{
+
+font-size:20px;
+
+}
+
+.info-chip p{
+
+margin:0;
+
+font-size:15px;
+
+font-weight:700;
+
+color:#fff;
+
+}
+
+/* Animations */
+
+@keyframes avatarFloat{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+}
+
+@keyframes avatarShine{
+
+0%{
+
+left:-180%;
+
+}
+
+100%{
+
+left:180%;
+
+}
+
+}
+.header{
+
+padding:30px !important;
+
+border-radius:30px !important;
+
+background:
+
+linear-gradient(
+
+145deg,
+
+rgba(124,58,237,.16),
+
+rgba(6,182,212,.10)
+
+)!important;
+
+box-shadow:
+
+0 25px 60px rgba(0,0,0,.45);
+
+border:
+
+1px solid rgba(255,255,255,.12);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+/* Glow */
+
+.header::before{
+
+content:"";
+
+position:absolute;
+
+width:350px;
+
+height:350px;
+
+background:
+
+radial-gradient(circle,
+
+rgba(124,58,237,.25),
+
+transparent);
+
+right:-120px;
+
+top:-120px;
+
+filter:blur(30px);
+
+}
+
+.header::after{
+
+content:"";
+
+position:absolute;
+
+width:280px;
+
+height:280px;
+
+background:
+
+radial-gradient(circle,
+
+rgba(6,182,212,.20),
+
+transparent);
+
+left:-120px;
+
+bottom:-120px;
+
+filter:blur(30px);
+
+}
+
+.progress-bar{
+
+height:16px !important;
+
+border-radius:40px;
+
+overflow:hidden;
+
+background:
+
+rgba(255,255,255,.08);
+
+}
+
+.progress-fill{
+
+background:
+
+linear-gradient(
+90deg,
+
+#8B5CF6,
+
+#EC4899,
+
+#4ADE80);
+
+box-shadow:
+
+0 0 30px rgba(6,182,212,.4);
+
+}
+.status-box{
+
+padding:14px 18px;
+
+border-radius:18px;
+
+background:
+
+rgba(255,255,255,.08);
+
+border:
+
+1px solid rgba(255,255,255,.12);
+
+box-shadow:
+
+0 10px 25px rgba(0,0,0,.25);
+
+}
+
+.status-dot{
+
+width:14px;
+
+height:14px;
+
+box-shadow:
+
+0 0 18px #4ADE80;
+
+}
+/*======================================
+        PREMIUM STATS HEADER
+=======================================*/
+
+.stats-header{
+
+display:flex;
+
+align-items:center;
+
+gap:22px;
+
+padding:28px;
+
+margin-bottom:35px;
+
+border-radius:28px;
+
+position:relative;
+
+overflow:hidden;
+
+background:
+linear-gradient(
+135deg,
+rgba(124,58,237,.12),
+rgba(6,182,212,.08));
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(25px);
+
+box-shadow:
+0 20px 45px rgba(0,0,0,.35);
+
+animation:headerFade .8s ease;
+
+}
+
+/* Glow */
+
+.stats-header::before{
+
+content:"";
+
+position:absolute;
+
+width:280px;
+
+height:280px;
+
+background:
+radial-gradient(circle,
+rgba(124,58,237,.22),
+transparent);
+
+top:-140px;
+
+right:-120px;
+
+filter:blur(25px);
+
+}
+
+.stats-header::after{
+
+content:"";
+
+position:absolute;
+
+width:220px;
+
+height:220px;
+
+background:
+radial-gradient(circle,
+rgba(6,182,212,.18),
+transparent);
+
+left:-100px;
+
+bottom:-100px;
+
+filter:blur(25px);
+
+}
+
+/* Icon */
+
+.stats-header-icon{
+
+width:90px;
+
+height:90px;
+
+border-radius:24px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:42px;
+
+background:
+linear-gradient(
+135deg,
+#8B5CF6,
+#EC4899);
+
+box-shadow:
+0 0 30px rgba(124,58,237,.45);
+
+animation:iconFloat 3s ease-in-out infinite;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.stats-header-icon::before{
+
+content:"";
+
+position:absolute;
+
+inset:-3px;
+
+border-radius:inherit;
+
+background:
+linear-gradient(
+120deg,
+#8B5CF6,
+#EC4899,
+#4ADE80,
+#8B5CF6);
+
+background-size:300%;
+
+animation:borderRotate 6s linear infinite;
+
+z-index:-1;
+
+filter:blur(12px);
+
+}
+
+/* Text */
+
+.stats-header-content{
+
+position:relative;
+
+z-index:2;
+
+}
+
+.stats-header-content h2{
+
+margin:0;
+
+font-size:34px;
+
+font-weight:900;
+
+letter-spacing:.5px;
+
+background:
+linear-gradient(
+90deg,
+#ffffff,
+#EC4899);
+
+-webkit-background-clip:text;
+
+color:transparent;
+
+}
+
+.stats-header-content p{
+
+margin-top:10px;
+
+font-size:15px;
+
+color:rgba(255,255,255,.75);
+
+line-height:1.8;
+
+}
+
+/* Animation */
+
+@keyframes iconFloat{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+}
+
+@keyframes borderRotate{
+
+0%{
+
+background-position:0%;
+
+}
+
+100%{
+
+background-position:300%;
+
+}
+
+}
+
+@keyframes headerFade{
+
+from{
+
+opacity:0;
+
+transform:translateY(-20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.stats-header{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.stats-header-content h2{
+
+font-size:28px;
+
+}
+
+.stats-header-icon{
+
+width:75px;
+
+height:75px;
+
+font-size:34px;
+
+}
+
+}
+/*==================================
+        SIMPLE STATS HEADER
+===================================*/
+
+.stats-header{
+
+margin-top:20px;
+
+margin-bottom:28px;
+
+display:flex;
+
+flex-direction:column;
+
+gap:14px;
+
+}
+
+/* الخط العلوي */
+
+.stats-line{
+
+width:90px;
+
+height:4px;
+
+border-radius:20px;
+
+background:linear-gradient(
+90deg,
+#8B5CF6,
+#EC4899);
+
+box-shadow:
+0 0 15px rgba(6,182,212,.35);
+
+}
+
+/* المحتوى */
+
+.stats-title{
+
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
+}
+
+/* الأيقونة */
+
+.stats-icon{
+
+width:48px;
+
+height:48px;
+
+border-radius:14px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:22px;
+
+background:rgba(255,255,255,.06);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+
+color:#EC4899;
+
+}
+
+/* العنوان */
+
+.stats-title h2{
+
+margin:0;
+
+font-size:24px;
+
+font-weight:800;
+
+color:#ffffff;
+
+}
+
+/* الوصف */
+
+.stats-title p{
+
+margin-top:4px;
+
+font-size:13px;
+
+color:var(--text-muted);
+
+}
+
+/*====================================================
+                QUESTION CARD PREMIUM
+=====================================================*/
+
+.q-card{
+
+position:relative;
+
+overflow:hidden;
+
+margin-bottom:35px;
+
+border-radius:28px;
+
+background:
+
+linear-gradient(
+145deg,
+rgba(255,255,255,.08),
+rgba(255,255,255,.03));
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(22px);
+
+box-shadow:
+
+0 20px 50px rgba(0,0,0,.35);
+
+transition:.5s cubic-bezier(.22,1,.36,1);
+
+}
+
+/* Border Animation */
+
+.q-card::before{
+
+content:"";
+
+position:absolute;
+
+inset:-2px;
+
+border-radius:inherit;
+
+padding:2px;
+
+background:
+
+linear-gradient(
+120deg,
+
+#8B5CF6,
+
+#EC4899,
+
+#4ADE80,
+
+#8B5CF6);
+
+background-size:300%;
+
+animation:borderMove 8s linear infinite;
+
+-webkit-mask:
+
+linear-gradient(#000 0 0) content-box,
+
+linear-gradient(#000 0 0);
+
+-webkit-mask-composite:xor;
+
+mask-composite:exclude;
+
+pointer-events:none;
+
+}
+
+/* Shine */
+
+.q-card::after{
+
+content:"";
+
+position:absolute;
+
+left:-120%;
+
+top:0;
+
+width:45%;
+
+height:100%;
+
+background:
+
+linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,.28),
+transparent);
+
+transform:skewX(-25deg);
+
+animation:shine 6s infinite;
+
+}
+
+/* Hover */
+
+.q-card:hover{
+
+transform:
+
+translateY(-10px)
+
+scale(1.01);
+
+box-shadow:
+
+0 30px 70px rgba(0,0,0,.45);
+
+}
+
+/* Header */
+
+.q-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:18px 22px;
+
+background:
+
+rgba(255,255,255,.03);
+
+border-bottom:
+
+1px solid rgba(255,255,255,.08);
+
+}
+
+/* Question Number */
+
+.question-number{
+
+padding:8px 18px;
+
+border-radius:40px;
+
+background:
+
+linear-gradient(
+135deg,
+#8B5CF6,
+#EC4899);
+
+font-weight:700;
+
+font-size:14px;
+
+}
+
+/* Status */
+
+.status{
+
+padding:8px 18px;
+
+border-radius:30px;
+
+font-size:13px;
+
+font-weight:bold;
+
+}
+
+.correct-status{
+
+background:#4ADE80;
+
+}
+
+.wrong-status{
+
+background:#F87171;
+
+}
+
+/* Question */
+
+.q-title{
+
+padding:28px;
+
+font-size:24px;
+
+font-weight:800;
+
+line-height:2;
+
+text-align:right;
+
+}
+
+/* Body */
+
+.q-body{
+
+padding:25px;
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:25px;
+
+align-items:stretch;
+
+}
+
+/* Answers */
+
+.answers{
+
+display:flex;
+
+flex-direction:column;
+
+gap:14px;
+
+}
+
+/* Every Answer */
+
+.answer{
+
+padding:18px;
+
+border-radius:18px;
+
+background:
+
+rgba(255,255,255,.05);
+
+border:
+
+1px solid rgba(255,255,255,.08);
+
+transition:.35s;
+
+font-size:16px;
+
+}
+
+.answer:hover{
+
+transform:translateX(-8px);
+
+background:
+
+rgba(255,255,255,.08);
+
+}
+
+/* Correct */
+
+.answer.correct{
+
+background:
+
+linear-gradient(
+135deg,
+#22c55e,
+#4ADE80)!important;
+
+}
+
+/* Wrong */
+
+.answer.wrong{
+
+background:
+
+linear-gradient(
+135deg,
+#B91C1C,
+#F87171)!important;
+
+}
+
+/* Image */
+
+.q-media{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.q-image{
+
+width:100%;
+
+border-radius:22px;
+
+cursor:pointer;
+
+transition:.5s;
+
+box-shadow:
+
+0 15px 35px rgba(0,0,0,.35);
+
+}
+
+.q-image:hover{
+
+transform:
+
+scale(1.05);
+
+}
+
+/* Analysis Button */
+
+.analysis-btn{
+
+width:100%;
+
+margin-top:18px;
+
+padding:16px;
+
+border:none;
+
+border-radius:18px;
+
+background:
+
+linear-gradient(
+135deg,
+#8B5CF6,
+#EC4899);
+
+font-size:15px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.35s;
+
+}
+
+.analysis-btn:hover{
+
+transform:translateY(-4px);
+
+}
+
+/* Analysis */
+
+.analysis-box{
+
+margin-top:15px;
+
+padding:18px;
+
+border-radius:18px;
+
+background:
+
+rgba(255,255,255,.06);
+
+border:
+
+1px solid rgba(255,255,255,.08);
+
+line-height:2;
+
+font-size:15px;
+
+}
+
+.q-card.success{
+    border:2px solid #4ADE80;
+    box-shadow:
+        0 0 20px rgba(34,197,94,.3),
+        0 0 50px rgba(34,197,94,.15);
+    animation:successPop .6s ease;
+}
+
+@keyframes successPop{
+0%{
+transform:scale(.9);
+opacity:0;
+}
+60%{
+transform:scale(1.03);
+}
+100%{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.q-card.danger{
+border:2px solid #F87171;
+box-shadow:
+0 0 18px rgba(239,68,68,.3),
+0 0 40px rgba(239,68,68,.15);
+animation:wrongShake .55s;
+}
+
+@keyframes wrongShake{
+
+0%,100%{transform:translateX(0);}
+20%{transform:translateX(-6px);}
+40%{transform:translateX(6px);}
+60%{transform:translateX(-4px);}
+80%{transform:translateX(4px);}
+}
+
+.q-card.blank{
+border:2px dashed #64748b;
+box-shadow:0 0 20px rgba(100,116,139,.2);
+animation:blankPulse 2.5s infinite;
+}
+
+@keyframes blankPulse{
+
+0%,100%{
+box-shadow:0 0 10px rgba(100,116,139,.15);
+}
+
+50%{
+box-shadow:0 0 35px rgba(100,116,139,.35);
+}
+}
+
+.question-state.success{
+    color:#4ADE80;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.question-state.success .icon{
+    display:inline-block;
+    animation:correctIcon .8s ease;
+}
+
+.question-state.success .text{
+    animation:shine 1.5s infinite;
+}
+
+@keyframes correctIcon{
+0%{transform:scale(0) rotate(-180deg);}
+70%{transform:scale(1.25) rotate(15deg);}
+100%{transform:scale(1) rotate(0);}
+}
+
+@keyframes shine{
+0%,100%{opacity:1;text-shadow:0 0 0 transparent;}
+50%{text-shadow:0 0 18px #4ADE80;}
+}
+
+.question-state.danger{
+    color:#F87171;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.question-state.danger .icon{
+    animation:wrongIcon .6s ease;
+}
+
+.question-state.danger .text{
+    animation:wrongText .6s ease;
+}
+
+@keyframes wrongIcon{
+0%,100%{transform:rotate(0);}
+20%{transform:rotate(-18deg);}
+40%{transform:rotate(18deg);}
+60%{transform:rotate(-10deg);}
+80%{transform:rotate(10deg);}
+}
+
+@keyframes wrongText{
+0%,100%{transform:translateX(0);}
+25%{transform:translateX(-3px);}
+50%{transform:translateX(3px);}
+75%{transform:translateX(-2px);}
+}
+
+.question-state.blank{
+    color:var(--text-muted);
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+.question-state.blank .icon{
+    animation:floatIcon 2s ease-in-out infinite;
+}
+
+@keyframes floatIcon{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-5px);}
+}
+/* ================= ESSAY RESULT DISPLAY ================= */
+.badge-pill{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 12px; border-radius:999px; font-size:11.5px; font-weight:800;
+  background:rgba(245,158,11,0.18); color:#F59E0B;
+}
+.q-card.essay.pending{ border-color:rgba(139,92,246,0.55); }
+.q-card.essay.review{ border-color:rgba(251,191,36,0.55); }
+.q-card.essay.failed{ border-color:rgba(248,113,113,0.55); }
+
+.essay-answer-box{
+  background:rgba(255,255,255,0.06); border-radius:14px; padding:14px 16px;
+  font-size:14px; line-height:1.8; white-space:pre-wrap; margin:10px 0;
+}
+.essay-score-row{ display:flex; align-items:center; justify-content:space-between; margin:10px 0; flex-wrap:wrap; gap:8px; }
+.essay-score{ font-family:var(--mono); font-weight:800; font-size:18px; }
+.essay-status-pill{
+  display:inline-flex; align-items:center; gap:6px; padding:5px 13px; border-radius:999px;
+  font-size:12px; font-weight:800;
+}
+.essay-status-pill.graded{ background:rgba(74,222,128,0.18); color:#4ADE80; }
+.essay-status-pill.review{ background:rgba(251,191,36,0.18); color:#FBBF24; }
+.essay-status-pill.pending{ background:rgba(139,92,246,0.2); color:#c4b5fd; }
+.essay-status-pill.failed{ background:rgba(248,113,113,0.2); color:#F87171; }
+
+.rubric-detail-btn{
+  margin-top:6px; width:100%; padding:9px; border-radius:12px; cursor:pointer;
+  background:rgba(255,255,255,0.08); border:1px solid var(--glass-border); color:var(--text);
+  font-weight:700; font-size:12.5px;
+}
+.rubric-detail-box{ display:none; margin-top:10px; }
+.rubric-detail-row{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 12px; border-radius:10px; background:rgba(255,255,255,0.05);
+  margin-bottom:6px; font-size:12.5px;
+}
+.rubric-detail-total{
+  display:flex; justify-content:space-between; padding:9px 12px; margin-top:4px;
+  font-weight:800; border-top:1px solid var(--glass-border); font-size:13px;
+}
+.essay-ai-note{
+  margin-top:10px; font-size:12.5px; color:var(--text-muted);
+  background:rgba(139,92,246,0.08); border-radius:12px; padding:10px 12px; line-height:1.7;
+}
+
+.pending-final-banner{
+  display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:20px;
+  background:rgba(139,92,246,0.14); border:1px solid rgba(139,92,246,0.4);
+  margin-bottom:20px; font-size:13.5px; line-height:1.8;
+}
+.pending-final-banner .pf-icon{ font-size:28px; }
+</style>
+</head>
+
+<body>
+
+<div class="top-brand">
+  <img src="icon.png" alt="EduNova">
+  <div>
+    <h1>EduNova</h1>
+    <span>📊 نتيجتك في الامتحان</span>
+  </div>
+</div>
+
+<div class="header">
+
+  <!-- LEFT: Avatar + Info -->
+<div class="user-box">
+
+    <div class="avatar">
+        <img src="icon.png" alt="EduNova" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+    </div>
+
+    <div class="user-info">
+
+        <h2 id="studentName">...</h2>
+
+        <div class="info-row">
+
+            <div class="info-chip">
+
+                <span>🆔</span>
+
+                <p id="studentCode"></p>
+
+            </div>
+
+            <div class="info-chip">
+
+                <span>📝</span>
+
+                <p id="examName"></p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+  <!-- MIDDLE: Progress -->
+  <div class="progress-box">
+    <div class="progress-title">📊 التقدم</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Status -->
+  <div class="status-box">
+    <div class="status-dot" id="statusDot"></div>
+    <span id="statusText">داخل الامتحان</span>
+  </div>
+
+  <a href="home.html" style="margin-inline-start:10px;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);color:#fff;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap;">🏠 الرئيسية</a>
+
+</div>
+<section class="stats-section">
+
+<div class="stats-header">
+
+    <div class="stats-line"></div>
+
+    <div class="stats-title">
+
+        <span class="stats-icon">📊</span>
+
+        <div>
+            <h2>يلا نشوف عملت إيه 👀</h2>
+            <p>إحصائيات أداء الطالب في الامتحان</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="stats">
+
+<div class="card total">
+    <div class="card-glow"></div>
+
+    <div class="card-icon">
+        📚
+    </div>
+
+    <div class="card-title">
+        مجموع الأسئلة
+    </div>
+
+    <span id="totalQ">0</span>
+
+    <small>Question Count</small>
+
+</div>
+
+<div class="card percent">
+
+    <div class="card-glow"></div>
+
+    <div class="card-icon">
+        🎯
+    </div>
+
+    <div class="card-title">
+        النسبة
+    </div>
+
+    <span id="percent">0%</span>
+
+    <div class="badge" id="badge">
+        جاري التقييم...
+    </div>
+
+</div>
+
+<div class="card correct">
+
+    <div class="card-glow"></div>
+
+    <div class="card-icon">
+        🏆
+    </div>
+
+    <div class="card-title">
+        الدرجات المكتسبة
+    </div>
+
+    <span id="earnedPoints">0</span>
+
+    <small id="earnedPointsOutOf">Points Earned</small>
+
+</div>
+
+<div class="card wrong">
+
+    <div class="card-glow"></div>
+
+    <div class="card-icon">
+        📉
+    </div>
+
+    <div class="card-title">
+        الدرجات الناقصة
+    </div>
+
+    <span id="missingPoints">0</span>
+
+    <small>Points Lost</small>
+
+</div>
+
+<div class="card blank">
+
+    <div class="card-glow"></div>
+
+    <div class="card-icon">
+        📭
+    </div>
+
+    <div class="card-title">
+        اللي ماحلتهاش 🤷
+    </div>
+
+    <span id="blankQ">0</span>
+
+    <small>Unanswered</small>
+
+</div>
+
+</div>
+
+</section>
+<div class="stats-header">
+
+    <div class="stats-line"></div>
+
+    <div class="stats-title">
+
+        <span class="stats-icon">📊</span>
+
+        <div>
+            <h2>تحليل الاسئلة</h2>
+            <p>إحصائيات أداء الطالب في الامتحان</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="pending-final-banner" id="pendingFinalBanner" style="display:none;">
+  <div class="pf-icon">🤖</div>
+  <div class="pf-text">بنحلل إجاباتك المقالية دلوقتي... 🤖</div>
+</div>
+
+<div class="questions" id="questions"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+
+/* ================= FIREBASE ================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyB6_HkPcbAhyZG8joikJr_kPK-6UACxldg",
+  authDomain: "plat-form-97b8d.firebaseapp.com",
+  projectId: "plat-form-97b8d",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+/* ================= STUDENT DATA ================= */
+const studentId = localStorage.getItem("studentId");
+const studentName = localStorage.getItem("studentName") || "طالب";
+const studentCode = localStorage.getItem("studentUsername") || localStorage.getItem("studentCode") || "—";
+
+/* ================= HEADER ================= */
+document.getElementById("studentName").innerText = studentName;
+document.getElementById("studentCode").innerText = studentCode;
+
+/* ================= ANALYSIS TOGGLE ================= */
+window.toggleAnalysis = function(btn){
+  const box = btn.nextElementSibling;
+  if(!box) return;
+  box.style.display = box.style.display === "block" ? "none" : "block";
+};
+
+/* ================= RUBRIC DETAIL TOGGLE ================= */
+window.toggleRubricDetail = function(btn){
+  const box = btn.nextElementSibling;
+  if(!box) return;
+  box.style.display = box.style.display === "block" ? "none" : "block";
+};
+
+/* ================= ESSAY QUESTION CARD (rule #30) ================= */
+function renderEssayCard(container, q, questionId, essayResult, index) {
+  const r = essayResult || {};
+  const status = r.gradingStatus || "pending";
+
+  let stateCls = "pending", pillCls = "pending", pillText = "🔵 جاري التصحيح... ⏳";
+  if (status === "graded") { stateCls = ""; pillCls = "graded"; pillText = "🟢 اتصححت بالذكاء الاصطناعي 🤖"; }
+  else if (status === "review_required" && r.gradingMethod === "manual") { stateCls = "review"; pillCls = "review"; pillText = "🖐 المدرس هيصححها بنفسه"; }
+  else if (status === "review_required") { stateCls = "review"; pillCls = "review"; pillText = "🟡 محتاجة مراجعة سريعة من المدرس"; }
+  else if (status === "teacher_reviewed") { stateCls = ""; pillCls = "graded"; pillText = "🟢 راجعها المدرس بنفسه ✅"; }
+  else if (status === "failed") { stateCls = "failed"; pillCls = "failed"; pillText = "🔴 حصل عطل بسيط في التصحيح"; }
+  else { stateCls = "pending"; pillCls = "pending"; pillText = "🔵 جاري التصحيح... ⏳"; }
+
+  const finalScore = r.finalScore ?? r.aiScore ?? null;
+  const maxScore = r.maxScore ?? q.points ?? 0;
+  const answerText = r.studentAnswer || "معملتش أي إجابة 🤷";
+  const criteria = r.criteria || [];
+
+  const scoreHTML = finalScore !== null
+    ? `<div class="essay-score">${finalScore} / ${maxScore}</div>`
+    : `<div class="essay-score">— / ${maxScore}</div>`;
+
+  const confidenceHTML = (status === "graded" || status === "review_required") && r.confidence != null
+    ? `<div style="font-size:12px;color:var(--text-muted);">الثقة: ${Math.round(r.confidence * 100)}%</div>`
+    : "";
+
+  const rubricRowsHTML = criteria.map(c => {
+    const icon = c.status === "full" ? "✓" : c.status === "partial" ? "🟡" : "✗";
+    return `<div class="rubric-detail-row"><span>${icon} ${c.criterionTitle}</span><span>${c.score} / ${c.maxScore}</span></div>`;
+  }).join("");
+
+  const detailHTML = criteria.length ? `
+    <button class="rubric-detail-btn" onclick="toggleRubricDetail(this)">📖 عايز تشوف التفاصيل؟</button>
+    <div class="rubric-detail-box">
+      ${rubricRowsHTML}
+      <div class="rubric-detail-total"><span>المجموع</span><span>${finalScore} / ${maxScore}</span></div>
+      ${r.aiSummary ? `<div class="essay-ai-note">💡 <b>تحليل AI:</b> ${r.aiSummary}</div>` : ""}
+    </div>
+  ` : (status === "failed"
+      ? `<div class="essay-ai-note">⚠️ حصل عطل بسيط والسؤال ده متصححش لسه، بس متقلقش إجابتك محفوظة وهتتصحح يدوي أو هنعيد المحاولة.</div>`
+      : `<div class="essay-ai-note">بنحلل إجابتك على معايير التصحيح... ثواني وهنخلص ⏳</div>`);
+
+  const card = document.createElement("div");
+  card.className = `q-card essay ${stateCls}`;
+  card.innerHTML = `
+    <div class="q-header">
+      <div class="question-number">السؤال ${index + 1}</div>
+      <div class="badge-pill">✍️ سؤال مقالي</div>
+    </div>
+    <div class="q-title">${q.text || "سؤال"}</div>
+    <div class="q-body">
+      <div style="font-size:12.5px;color:var(--text-muted);margin-bottom:4px;">إجابتك:</div>
+      <div class="essay-answer-box">${escapeHtmlResult(answerText)}</div>
+      <div class="essay-score-row">
+        ${scoreHTML}
+        <span class="essay-status-pill ${pillCls}">${pillText}</span>
+      </div>
+      ${confidenceHTML}
+      ${detailHTML}
+    </div>
+  `;
+  container.appendChild(card);
+}
+
+function escapeHtmlResult(str) {
+  return String(str)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+/* ================= LOAD RESULT ================= */
+async function loadResult(){
+
+  try{
+
+    if(!studentId){
+      console.error("No studentId");
+      return;
+    }
+
+    /* لو جاي رابط فيه ?exam=<اسم الامتحان> (زي ما exam.html بيبعت) بنجيب
+       نتيجة الامتحان ده بالتحديد، عشان الطالب لما يكون عنده أكتر من
+       امتحان تظهرله نتيجة الامتحان الصح مش أول محاولة لقيناها بالصدفة. */
+    const requestedExam = new URLSearchParams(window.location.search).get("exam");
+
+    let result;
+    if (requestedExam) {
+      const attemptSnap = await getDoc(doc(db,"students",studentId,"exams",requestedExam));
+      if (!attemptSnap.exists()) { console.error("No result found"); return; }
+      result = attemptSnap.data();
+    } else {
+      const resultSnap = await getDocs(
+        collection(db,"students",studentId,"exams")
+      );
+      if(resultSnap.empty){
+        console.error("No result found");
+        return;
+      }
+      result = resultSnap.docs[0].data();
+    }
+
+    const examName = result.examName || "—";
+    const answers = result.answers || {};
+    const hasEssay = !!result.hasEssay;
+
+    /* Fetch essay results once, early — used both for the pending banner
+       message below and for the per-question cards further down. */
+    let essayResultsMap = {};
+    if (hasEssay) {
+      const essaySnap = await getDocs(
+        collection(db,"students",studentId,"exams",examName,"essayResults")
+      );
+      essaySnap.forEach(d => { essayResultsMap[d.id] = d.data(); });
+    }
+    const essayResultsList = Object.values(essayResultsMap);
+    const anyAwaitingManual = essayResultsList.some(r =>
+      r.gradingMethod === "manual" && (r.finalScore === null || r.finalScore === undefined)
+    );
+
+    /* ================= HEADER INFO ================= */
+    /* rule #51/#58: while essays exist and aren't all graded yet, don't
+       present a misleading partial percentage as the final result.
+       We key this off the actual `percent` field rather than the status
+       string — the backend (recomputeExamTotals) only ever writes a
+       non-null percent once every essay has a real finalScore, whether
+       that essay was AI-graded or graded manually by the teacher. This
+       avoids the ambiguity of "review_required" meaning two different
+       things (AI already scored it vs. a manual question with no score
+       yet at all). */
+    const gradingDone = !hasEssay || (result.percent !== null && result.percent !== undefined);
+
+    const percent = hasEssay
+      ? (gradingDone ? Math.min(100, Math.max(0, result.percent ?? 0)) : null)
+      : Math.min(100, Math.max(0, result.percent || 0));
+
+const correct = result.correct || 0;
+
+const wrong = result.wrong || 0;
+
+const blank = result.blank || 0;
+
+/* ================= درجات (مش عدد أسئلة) =================
+   كل سؤال اختياري له درجته الخاصة (مش نقطة ثابتة)، والمقالي بيتصحح
+   بدرجته الكاملة برضه — فبدل ما نعرض "عدد الصح/الغلط" (اللي بيبقى
+   مضلِّل لو الأسئلة درجاتها مختلفة)، بنعرض الدرجات المكتسبة والناقصة
+   فعليًا. للامتحانات القديمة اللي اتعملت قبل إضافة درجة لكل سؤال، بنرجع
+   لنفس الحساب القديم (كل سؤال بدرجة واحدة) عشان محدش نتيجته تتغير. */
+const mcqEarnedPointsRaw = result.mcqEarnedPoints ?? correct;
+const mcqTotalPoints = result.mcqTotalPoints ?? (correct + wrong + blank);
+const mcqEarnedPoints = Math.min(mcqEarnedPointsRaw, mcqTotalPoints);
+const essayTotalPoints = result.essayTotalPoints ?? 0;
+// حماية إضافية: أي درجة مقالي مسجّلة متتجاوزش الدرجة الكلية بتاعتها،
+// مهما كانت القيمة المخزنة في Firestore (بيانات قديمة/شاذة مثلًا).
+const essayEarnedPoints = Math.min(result.essayEarnedPoints ?? 0, essayTotalPoints || Infinity);
+
+const totalExamPoints = result.totalExamPoints ?? (mcqTotalPoints + essayTotalPoints);
+const totalEarnedPointsRaw = result.totalEarnedPoints ?? (mcqEarnedPoints + essayEarnedPoints);
+const totalEarnedPoints = Math.max(0, Math.min(totalEarnedPointsRaw, totalExamPoints));
+const missingPoints = Math.max(0, totalExamPoints - totalEarnedPoints);
+
+// عدد الأسئلة (اختياري + مقالي مع بعض) — مش درجات، ده العدد الحقيقي
+// لكل أسئلة الامتحان، بعد ما كان بيفوّت السؤال المقالي بالغلط.
+const mcqQuestionCount = correct + wrong + blank;
+const total = mcqQuestionCount + essayResultsList.length;
+
+const pendingBanner = document.getElementById("pendingFinalBanner");
+
+if (hasEssay && !gradingDone) {
+  animateCounter("percent", 0, "%");
+  document.getElementById("percent").innerText = "…";
+  document.getElementById("earnedPoints").innerText = "…";
+  document.getElementById("missingPoints").innerText = "…";
+  const outOfEl = document.getElementById("earnedPointsOutOf");
+  if (outOfEl) outOfEl.innerText = "Points Earned";
+  if (pendingBanner) {
+    pendingBanner.style.display = "flex";
+    pendingBanner.querySelector(".pf-icon").innerText = anyAwaitingManual ? "🧑‍🏫" : "🤖";
+    pendingBanner.querySelector(".pf-text").innerHTML = anyAwaitingManual
+      ? `⏳ <b>لسه شوية وهتشوف نتيجتك النهائية</b><br>فيه سؤال مقالي المدرس هيصححه بنفسه — النتيجة هتتحدث لوحدها أول ما يخلص، مش محتاج تعمل حاجة.`
+      : `⏳ <b>لسه شوية وهتشوف نتيجتك النهائية</b><br>الأسئلة المقالية بتتقيّم دلوقتي بواسطة الذكاء الاصطناعي — النتيجة هتتحدث لوحدها أول ما نخلص، مش محتاج تعمل حاجة.`;
+  }
+} else {
+  animateCounter("percent", percent || 0, "%");
+  animateCounter("earnedPoints", totalEarnedPoints);
+  animateCounter("missingPoints", missingPoints);
+  const outOfEl = document.getElementById("earnedPointsOutOf");
+  if (outOfEl) outOfEl.innerText = `من أصل ${totalExamPoints} درجة`;
+  if (pendingBanner) pendingBanner.style.display = "none";
+}
+
+animateCounter("blankQ", blank);
+
+animateCounter("totalQ", total);
+
+updateBadge(hasEssay && !gradingDone ? 0 : (percent || 0));
+
+    /* ================= PROGRESS ================= */
+    const progress = document.getElementById("progressFill");
+    if(progress){
+      setTimeout(()=>{
+        progress.style.width = (hasEssay && !gradingDone ? 0 : (percent || 0)) + "%";
+      },300);
+    }
+
+    /* ================= LIVE UPDATE WHILE / AFTER ESSAYS ARE GRADED =================
+       rule #50: poll safely via a Firestore listener instead of a fake
+       progress bar. We keep listening even after gradingDone becomes
+       true (not just while pending) so that if the teacher later edits
+       an already-approved grade, the student's page updates instantly
+       too — without needing a refresh. We only re-render when the
+       percent actually changes, so the very first snapshot (which just
+       confirms the state we already rendered) doesn't cause a loop. */
+    if (hasEssay && !window.__resultListenerAttached) {
+      window.__resultListenerAttached = true;
+      window.__lastKnownPercent = result.percent ?? null;
+      const attemptRef = doc(db, "students", studentId, "exams", examName);
+      onSnapshot(attemptRef, snap => {
+        const d = snap.data();
+        if (!d) return;
+        const newPercent = d.percent ?? null;
+        if (newPercent !== window.__lastKnownPercent) {
+          window.__lastKnownPercent = newPercent;
+          loadResult();
+        }
+      });
+    }
+
+    /* ================= STATUS ================= */
+    const statusBox = document.getElementById("statusBox");
+    const statusText = document.getElementById("statusText");
+
+    let reason = result.exitReason || "تمام، سلّمت الامتحان بنجاح 🎉";
+
+    if(statusText) statusText.innerText = reason;
+
+    if(statusBox){
+      statusBox.classList.remove("status-normal","status-warn","status-danger");
+
+      if(reason.includes("وقت")){
+        statusBox.classList.add("status-warn");
+      }
+      else if(reason.includes("غش")){
+        statusBox.classList.add("status-danger");
+      }
+      else{
+        statusBox.classList.add("status-normal");
+      }
+    }
+
+    /* ================= GET EXAM ================= */
+    const examsSnap = await getDocs(collection(db,"exams"));
+
+    let examDoc = null;
+
+    examsSnap.forEach(doc=>{
+      if(doc.data().name === examName){
+        examDoc = doc;
+      }
+    });
+
+    if(!examDoc){
+      console.error("Exam not found");
+      return;
+    }
+
+    /* ================= QUESTIONS ================= */
+    const qSnap = await getDocs(
+      collection(db,"exams",examDoc.id,"questions")
+    );
+
+    // essayResultsMap was already fetched earlier (used for the pending
+    // banner above) — reused here for the per-question breakdown cards.
+
+    const container = document.getElementById("questions");
+    container.innerHTML = "";
+
+    let i = 0;
+
+    qSnap.forEach(docSnap=>{
+
+      const q = docSnap.data();
+      const userAnswer = answers[i];
+
+      if (q.type === "essay") {
+        renderEssayCard(container, q, docSnap.id, essayResultsMap[docSnap.id], i);
+        i++;
+        return;
+      }
+
+      const card = document.createElement("div");
+      if(userAnswer === undefined){
+    card.className = "q-card blank";
+}
+else if(userAnswer === q.correct){
+    card.className = "q-card success";
+}
+else{
+    card.className = "q-card danger";
+}
+
+      /* ================= ANSWERS ================= */
+      const answersHTML = (q.answers || []).map((a,idx)=>{
+
+        let cls = "answer";
+
+        if(idx === q.correct) cls += " correct";
+        if(userAnswer === idx && userAnswer !== q.correct) cls += " wrong";
+
+        return `<div class="${cls}">${a}</div>`;
+      }).join("");
+
+      /* ================= CARD ================= */
+      card.innerHTML = `
+
+<div class="q-header">
+
+    <div class="question-number">
+        السؤال ${i + 1} <span style="opacity:.7;font-size:12px;">(${q.points ?? 1} درجة)</span>
+    </div>
+
+    <div class="${
+        userAnswer===q.correct
+        ?
+        "question-state success"
+        :
+        "question-state danger"
+    }">
+
+        ${
+        userAnswer===q.correct
+        ?
+        "✔ صحيحة"
+        :
+        "✖ خاطئة"
+        }
+
+    </div>
+
+</div>
+
+<div class="q-title">
+
+${q.text || "سؤال"}
+
+</div>
+
+<div class="q-body">
+
+<div class="answers">
+
+${answersHTML}
+
+<div class="answer ${
+userAnswer===q.correct
+?
+"correct"
+:
+"wrong"
+}">
+
+<b>إجابتك</b>
+
+<br>
+
+${
+userAnswer!==undefined
+?
+q.answers[userAnswer]
+:
+"معملتش إجابة"
+}
+
+</div>
+
+${
+q.analysis
+?
+`
+<button class="analysis-btn"
+onclick="toggleAnalysis(this)">
+📖 عايز تعرف ليه؟
+</button>
+
+<div class="analysis-box">
+${q.analysis}
+</div>
+`
+:
+""
+}
+
+</div>
+
+${
+q.image
+?
+`
+<div class="q-media">
+
+<img
+src="${q.image}"
+class="q-image"
+loading="lazy">
+
+</div>
+`
+:
+""
+}
+
+</div>
+
+`;
+      container.appendChild(card);
+      i++;
+    });
+
+  }
+  catch(err){
+    console.error("RESULT ERROR:",err);
+  }
+}
+
+/* ================= ANIMATE COUNTER ================= */
+
+function animateCounter(id, target, suffix = "") {
+
+    const element = document.getElementById(id);
+
+    let current = 0;
+
+    const step = Math.max(1, Math.ceil(target / 60));
+
+    const timer = setInterval(() => {
+
+        current += step;
+
+        if (current >= target) {
+
+            current = target;
+
+            clearInterval(timer);
+
+        }
+
+        element.innerText = current + suffix;
+
+    }, 20);
+
+}
+
+/* ================= BADGE ================= */
+
+function updateBadge(percent){
+
+    const badge = document.getElementById("badge");
+
+    if(!badge) return;
+
+    if(percent >= 95){
+
+        badge.innerHTML="🏆 Elite";
+
+        badge.style.background="#F59E0B";
+
+    }
+
+    else if(percent >= 90){
+
+        badge.innerHTML="🥇 ممتاز";
+
+        badge.style.background="#4ADE80";
+
+    }
+
+    else if(percent >= 80){
+
+        badge.innerHTML="🥈 جيد جداً";
+
+        badge.style.background="#EC4899";
+
+    }
+
+    else if(percent >= 70){
+
+        badge.innerHTML="🥉 جيد";
+
+        badge.style.background="#8B5CF6";
+
+    }
+
+    else{
+
+        badge.innerHTML="📘 يحتاج مراجعة";
+
+        badge.style.background="#F87171";
+
+    }
+
+}
+
+/* ================= START ================= */
+loadResult();
+</script>
+
+</body>
+</html>
